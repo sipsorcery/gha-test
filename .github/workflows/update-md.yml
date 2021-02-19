@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: results
-          path: winjob.txt
+          path: macjob.txt
     
   collate:
     runs-on: ubuntu-latest
@@ -52,7 +52,10 @@ jobs:
           ls
       - name: Commit the updated markdown file
         run: |
-          echo "Hello World $GITHUB_SHA" >> test.md
+          #echo "::set-output name=date::$(date)"
+          echo "GitHub Actions OS Versions at $(date)" >> test.md
+          cat winjob.txt >> test.md
+          cat macjob.txt >> test.md
           cat test.md
           git config --global user.name "GitHub Action (update-md)"
           git commit test.md -m "Automated update for test.md."
