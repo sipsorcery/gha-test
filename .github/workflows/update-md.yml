@@ -32,5 +32,6 @@ jobs:
         run: |
           echo "Hello World $GITHUB_SHA" >> test.md
           cat test.md
+          git config --global user.name "GitHub Action (update-md)"
           git commit test.md -m "Automated update for test.md."
           git push
