@@ -1,4 +1,4 @@
-name: Update Markdown
+name: Update OS Versions Markdown
 
 on:
   push:
@@ -38,9 +38,23 @@ jobs:
           name: results
           path: macjob.txt
     
+  ubuntujob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get OS version
+        run: |
+          x=$(uname -a)
+          echo $x
+          echo $x >> ubuntujob.txt
+      - name: Upload result for ubuntujob
+        uses: actions/upload-artifact@v2
+        with:
+          name: results
+          path: ubuntujob.txt
+    
   collate:
     runs-on: ubuntu-latest
-    needs: [ winjob, macjob ]
+    needs: [ winjob, macjob, ubuntujob ]
     steps:
       - uses: actions/checkout@v2
       - name: Download results
@@ -53,10 +67,11 @@ jobs:
       - name: Commit the updated markdown file
         run: |
           #echo "::set-output name=date::$(date)"
-          echo "GitHub Actions OS Versions at $(date)" >> test.md
-          cat winjob.txt >> test.md
-          cat macjob.txt >> test.md
-          cat test.md
+          echo "GitHub Actions OS Versions at $(date)" > osversions.md
+          cat winjob.txt >> osversions.md
+          cat macjob.txt >> osversions.md
+          cat ubuntujob.txt >> osversions.md
+          cat osversions.md
           git config --global user.name "GitHub Action (update-md)"
-          git commit test.md -m "Automated update for test.md."
+          git commit osversions.md -m "Automated update for osversions.md."
           git push
