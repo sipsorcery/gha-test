@@ -67,10 +67,10 @@ jobs:
       - name: Commit the updated markdown file
         run: |
           #echo "::set-output name=date::$(date)"
-          echo "GitHub Actions OS Versions at $(date)" > osversions.md
-          cat winjob.txt >> osversions.md
-          cat macjob.txt >> osversions.md
-          cat ubuntujob.txt >> osversions.md
+          printf "GitHub Actions OS Versions at $(date)\n" > osversions.md
+          printf "> $(cat winjob.txt)" >> osversions.md
+          printf "> $(cat macjob.txt)\n" >> osversions.md
+          printf "> $(ubuntujob.txt)\n" >> osversions.md
           cat osversions.md
           git config --global user.name "GitHub Action (update-md)"
           git commit osversions.md -m "Automated update for osversions.md."
