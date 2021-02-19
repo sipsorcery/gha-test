@@ -67,7 +67,7 @@ jobs:
       - name: Commit the updated markdown file
         run: |
           #echo "::set-output name=date::$(date)"
-          printf "GitHub Actions OS Versions at $(date)\n" > osversions.md
+          printf "GitHub Actions OS Versions at $(date)\n\n" > osversions.md
           printf "**windows-latest**\n" >> osversions.md
           printf "> $(cat winjob.txt | grep -v '^[[:space:]]*$')\n\n" >> osversions.md
           printf "**macOS-latest**\n" >> osversions.md
