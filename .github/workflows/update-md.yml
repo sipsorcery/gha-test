@@ -68,9 +68,12 @@ jobs:
         run: |
           #echo "::set-output name=date::$(date)"
           printf "GitHub Actions OS Versions at $(date)\n" > osversions.md
-          printf "> $(cat winjob.txt | grep -v '^[[:space:]]*$')\n" >> osversions.md
-          printf "> $(cat macjob.txt)\n" >> osversions.md
-          printf "> $(cat ubuntujob.txt)\n" >> osversions.md
+          printf "**windows-latest**\n" >> osversions.md
+          printf "> $(cat winjob.txt | grep -v '^[[:space:]]*$')\n\n" >> osversions.md
+          printf "**macOS-latest**\n" >> osversions.md
+          printf "> $(cat macjob.txt)\n\n" >> osversions.md
+          printf "**ubuntu-latest**\n" >> osversions.md
+          printf "> $(cat ubuntujob.txt)\n\n" >> osversions.md
           cat osversions.md
           git config --global user.name "GitHub Action (update-md)"
           git commit osversions.md -m "Automated update for osversions.md."
