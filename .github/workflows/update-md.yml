@@ -1,8 +1,8 @@
 name: Update OS Versions Markdown
 
 on:
-  push:
-    branches: [ master ]
+  #push:
+  #  branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -67,10 +67,13 @@ jobs:
       - name: Commit the updated markdown file
         run: |
           #echo "::set-output name=date::$(date)"
-          echo "GitHub Actions OS Versions at $(date)" > osversions.md
-          cat winjob.txt >> osversions.md
-          cat macjob.txt >> osversions.md
-          cat ubuntujob.txt >> osversions.md
+          printf "GitHub Actions OS Versions at $(date)\n\n" > osversions.md
+          printf "**windows-latest**\n" >> osversions.md
+          printf "> $(cat winjob.txt | grep -v '^[[:space:]]*$')\n\n" >> osversions.md
+          printf "**macOS-latest**\n" >> osversions.md
+          printf "> $(cat macjob.txt)\n\n" >> osversions.md
+          printf "**ubuntu-latest**\n" >> osversions.md
+          printf "> $(cat ubuntujob.txt)\n\n" >> osversions.md
           cat osversions.md
           git config --global user.name "GitHub Action (update-md)"
           git commit osversions.md -m "Automated update for osversions.md."
