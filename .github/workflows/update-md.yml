@@ -68,6 +68,8 @@ jobs:
           echo "github.event.client_payload.pull_request.head.ref=${{ github.event.client_payload.pull_request.head.ref }}."
           echo "github.event_name=${{ github.event_name }}."
           echo "GITHUB_SHA=$GITHUB_SHA."
+          git status
+          git log -n 3
       - name: Download results
         uses: actions/download-artifact@v2
         with:
