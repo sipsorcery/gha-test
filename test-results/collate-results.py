@@ -1,6 +1,7 @@
 import os
 import glob
 from collections import defaultdict
+from datetime import datetime
 
 # The character width of each cell in the results markdown table.
 COL_WIDTH = 12
@@ -28,11 +29,14 @@ for resFile in resultFiles:
 sorted(serverKeys)
 sorted(clientKeys)
 
-print(serverKeys)
-print(clientKeys)
-print(results)
+#print(serverKeys)
+#print(clientKeys)
+#print(results)
 
-print("len(clientKeys)=%i" % len(clientKeys))
+#print("len(clientKeys)=%i" % len(clientKeys))
+
+print('Echo Test Interoperability Results')
+print('Test run at %s' % datetime.now())
 
 # Print Table header row.
 print(f'| {"Server": <{COL_WIDTH}}| {"Client": <{COL_WIDTH}}', end='')
@@ -57,7 +61,8 @@ for serverKey in serverKeys:
     print(f'| {serverKey: <{COL_WIDTH}}', end='')
     for clientKey in clientKeys:
         if serverKey in results.keys() and clientKey in results[serverKey].keys():
-            print(f'| {results[serverKey][clientKey]:<{COL_WIDTH}}', end='')
+            resultChar = '&#9745;' if results[serverKey][clientKey] == '0' else '&#x2612;'
+            print(f'| {resultChar:<{COL_WIDTH}}', end='')
         else:
             print(f'| {" ":<{COL_WIDTH}}', end='')
     print('|')
