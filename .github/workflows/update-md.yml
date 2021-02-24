@@ -69,11 +69,11 @@ jobs:
     needs: [ winjob, macjob, ubuntujob ]
     steps:
       - uses: actions/checkout@v2
-        if: ${{ github.event.client_payload.pull_request }} != ''
+        if: github.event_name == 'repository_dispatch'
         with:
           ref: pull/${{ github.event.client_payload.pull_request.head.number }}/merge
       - uses: actions/checkout@v2
-        if: ${{ github.event.client_payload.pull_request }} == ''
+        if: github.event_name != 'repository_dispatch'
       - name: Dump commit ref (testing if PR or not)
         run: |
           echo "github.event.client_payload.pull_request.head.ref=${{ github.event.client_payload.pull_request.head.ref }}."
