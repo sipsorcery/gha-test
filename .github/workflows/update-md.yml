@@ -59,7 +59,7 @@ jobs:
   collate:
     runs-on: ubuntu-latest
     needs: [ winjob, macjob, ubuntujob ]
-    if: ${{ github.event_name != 'pull_request' }}
+    #if: ${{ github.event_name != 'pull_request' }}
     steps:
       - uses: actions/checkout@v2
       - name: Download results
@@ -69,7 +69,7 @@ jobs:
       - name: Collate result files
         run: |
           ls
-      - name: Commit the updated markdown file
+      - name: Write the markdown file
         run: |
           #echo "::set-output name=date::$(date)"
           printf "GitHub Actions OS Versions at $(date)\n\n" > osversions.md
@@ -80,6 +80,9 @@ jobs:
           printf "**ubuntu-latest**\n" >> osversions.md
           printf "> $(cat ubuntujob.txt)\n\n" >> osversions.md
           cat osversions.md
+      - name: Commit the updated markdown file
+        if: ${{ github.event_name != 'pull_request' }}
+        run: |
           git config --global user.name "GitHub Action"
           git commit osversions.md -m "Automated update for osversions.md."
           git push
