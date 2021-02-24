@@ -79,6 +79,6 @@ jobs:
           printf "**ubuntu-latest**\n" >> osversions.md
           printf "> $(cat ubuntujob.txt)\n\n" >> osversions.md
           cat osversions.md
-          git config --global user.name "GitHub Action (update-md)"
+          git config --global user.name "GitHub Action"
           git commit osversions.md -m "Automated update for osversions.md."
           git push
