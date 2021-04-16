@@ -43,6 +43,8 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git branch -a
+          git checkout testresults
           git add .
           git commit helloworld.md -m "Automated update for helloworld.md."
           git push
