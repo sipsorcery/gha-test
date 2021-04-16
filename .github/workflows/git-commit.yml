@@ -21,11 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        if: github.event_name == 'repository_dispatch'
         with:
-          ref: refs/pull/${{ github.event.client_payload.pull_request.number }}/head
-      - uses: actions/checkout@v2
-        if: github.event_name != 'repository_dispatch'
+          ref: testresults
       - name: Dump commit ref (testing if PR or not)
         run: |
           echo "github.event.client_payload.pull_request.head.ref=${{ github.event.client_payload.pull_request.head.ref }}."
@@ -35,8 +32,7 @@ jobs:
           git log -n 3
       - name: Write the markdown file
         run: |
-          #echo "::set-output name=date::$(date)"
-          printf "Hello World\n" > helloworld.md
+          printf "Hello World $(date)\n" > helloworld.md
           cat helloworld.md
       - name: Commit the updated markdown file
         if: github.event_name != 'pull_request' && github.event_name != 'repository_dispatch'
