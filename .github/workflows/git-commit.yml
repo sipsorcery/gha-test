@@ -37,7 +37,7 @@ jobs:
         run: |
           #echo "::set-output name=date::$(date)"
           printf "Hello World\n" > helloworld.md
-          cat hellworld.md
+          cat helloworld.md
       - name: Commit the updated markdown file
         if: github.event_name != 'pull_request' && github.event_name != 'repository_dispatch'
         run: |
