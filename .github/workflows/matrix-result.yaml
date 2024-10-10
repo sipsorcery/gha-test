@@ -38,4 +38,4 @@ jobs:
       - name: Collate
         run: |
           echo "Collating..."
-          echo "The output from interop-test is: ${ output }"
+          echo "The output from interop-test is: ${{ output }}"
