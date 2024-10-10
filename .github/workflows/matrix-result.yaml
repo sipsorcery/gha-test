@@ -33,7 +33,7 @@ jobs:
         id: maintask
         run: |
           # Store output
-          echo "result=${{ matrix.server }},${{ matrix.client }},${{ GITHUB_OUTPUT }}" >> "$GITHUB_OUTPUT"
+          echo "result=${{ matrix.server }},${{ matrix.client }},$GITHUB_OUTPUT" >> "$GITHUB_OUTPUT"
 
   collate:
     runs-on: ubuntu-latest
