@@ -20,15 +20,15 @@ jobs:
 
     strategy:
       matrix:
-        server: ["libdatachannel", "sipsorcery", "werift"]
-        client: ["libdatachannel", "sipsorcery", "werift"]
+        server: ["sipsorcery", "werift"]
+        client: ["sipsorcery", "werift"]
 
     steps:
       - name: Set output results
         id: set_output
         run: |
           # Store output
-          echo "${{ matrix.server }},${{ matrix.client }}"
+          echo "output=${{ matrix.server }},${{ matrix.client }}" >> $GITHUB_OUTPUT
 
   collate:
     runs-on: ubuntu-latest
@@ -38,3 +38,4 @@ jobs:
       - name: Collate
         run: |
           echo "Collating..."
+          echo "The output from interop-test is: ${ output }"
