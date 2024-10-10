@@ -46,4 +46,4 @@ jobs:
       - name: Collate
         run: |
           echo "Collating..."
-          echo "The output from interop-test is: ${{ needs.interop-tests.outputs }}"
+          echo "The output from interop-test is: ${{ toJSON(needs.interop-tests.outputs) }}"
