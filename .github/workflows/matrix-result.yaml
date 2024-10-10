@@ -24,11 +24,11 @@ jobs:
         client: ["sipsorcery", "werift"]
 
     steps:
-      - name: Set output results
-        id: set_output
+      - name: Run main task
+        id: maintask
         run: |
           # Store output
-          echo "output=${{ matrix.server }},${{ matrix.client }}" >> $GITHUB_OUTPUT
+          echo "result=${{ matrix.server }},${{ matrix.client }}" >> $GITHUB_OUTPUT
 
   collate:
     runs-on: ubuntu-latest
@@ -38,4 +38,4 @@ jobs:
       - name: Collate
         run: |
           echo "Collating..."
-          echo "The output from interop-test is: ${{ steps.set_output.output }}"
+          echo "The output from interop-test is: ${{ steps.maintask.outputs.result }}"
