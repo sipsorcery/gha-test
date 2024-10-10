@@ -16,7 +16,7 @@ on:
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/passing-information-between-jobs
 jobs:
   # Job Description: Performs the Data Channel Test between each combination of the client and server for each library.
-  interop-tests:
+  interoptests:
     runs-on: ubuntu-latest
 
     # Map a step output to a job output
@@ -40,10 +40,10 @@ jobs:
 
   collate:
     runs-on: ubuntu-latest
-    needs: [interop-tests]
+    needs: [interoptests]
     
     steps:
       - name: Collate
         run: |
           echo "Collating..."
-          echo "The output from interop-test is: ${{ toJSON(needs.interop-tests.outputs) }}"
+          echo "The output from interop-test is: ${{ toJSON(needs.interoptests.outputs) }}"
