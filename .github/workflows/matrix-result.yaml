@@ -13,10 +13,15 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/passing-information-between-jobs
 jobs:
   # Job Description: Performs the Data Channel Test between each combination of the client and server for each library.
   interop-tests:
     runs-on: ubuntu-latest
+
+    # Map a step output to a job output
+    outputs:
+      output1: ${{ steps.maintask.outputs.result }}
 
     strategy:
       matrix:
@@ -38,4 +43,4 @@ jobs:
       - name: Collate
         run: |
           echo "Collating..."
-          echo "The output from interop-test is: ${{ steps.maintask.outputs.result }}"
+          echo "The output from interop-test is: ${{ needs.interop-tests.outputs.output1 }}"
