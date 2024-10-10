@@ -21,7 +21,10 @@ jobs:
 
     # Map a step output to a job output
     outputs:
-      results: ${{ steps.maintask.outputs.result }}
+      result_a_c: ${{ steps.maintask.outputs.result1 }}
+      result_a_d: ${{ steps.maintask.outputs.result2 }}
+      result_b_c: ${{ steps.maintask.outputs.result3 }}
+      result_b_d: ${{ steps.maintask.outputs.result4 }}
 
     strategy:
       matrix:
@@ -33,7 +36,7 @@ jobs:
         id: maintask
         run: |
           # Store output
-          echo "result=${{ matrix.server }},${{ matrix.client }},$GITHUB_OUTPUT" >> "$GITHUB_OUTPUT"
+          echo "result_${{ matrix.server }}_${{ matrix.client }}=${{ matrix.client }}" >> "$GITHUB_OUTPUT"
 
   collate:
     runs-on: ubuntu-latest
@@ -43,4 +46,4 @@ jobs:
       - name: Collate
         run: |
           echo "Collating..."
-          echo "The output from interop-test is: ${{ needs.interop-tests.outputs.results }}"
+          echo "The output from interop-test is: ${{ needs.interop-tests.outputs }}"
