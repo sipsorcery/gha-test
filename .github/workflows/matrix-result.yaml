@@ -33,6 +33,8 @@ jobs:
   collate:
     runs-on: ubuntu-latest
     needs: [interop-tests]
+    
     steps:
-     run: |
-      echo "Collating..."
+      - name: Collate
+        run: |
+          echo "Collating..."
