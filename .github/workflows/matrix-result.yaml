@@ -25,15 +25,15 @@ jobs:
 
     strategy:
       matrix:
-        server: ["sipsorcery", "werift"]
-        client: ["sipsorcery", "werift"]
+        server: ["a", "b"]
+        client: ["c", "d"]
 
     steps:
       - name: Run main task
         id: maintask
         run: |
           # Store output
-          echo "result=${{ matrix.server }},${{ matrix.client }}" >> $GITHUB_OUTPUT
+          echo "result=${{ matrix.server }},${{ matrix.client }}" >> "$GITHUB_OUTPUT"
 
   collate:
     runs-on: ubuntu-latest
