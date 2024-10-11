@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "Collating..."
           echo "The output from interop-test is: ${{ toJSON(needs.interoptests.outputs) }}"
-          results=${{ toJSON(needs.interoptests.outputs) }}
+          results='${{ toJSON(needs.interoptests.outputs) }}'
           echo "The output from interop-test (2) is: ${results}"
           
           echo "${results}" | jq -r 'to_entries | .[] | "\(.key): \(.value)"'
