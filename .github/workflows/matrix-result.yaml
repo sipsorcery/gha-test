@@ -47,3 +47,8 @@ jobs:
         run: |
           echo "Collating..."
           echo "The output from interop-test is: ${{ toJSON(needs.interoptests.outputs) }}"
+          
+          for key in "${{ steps.maintask.outputs }}"; do
+            echo "key=${key}"
+          done
+          
