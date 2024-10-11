@@ -36,7 +36,8 @@ jobs:
         id: maintask
         run: |
           # Store output
-          echo "result_${{ matrix.server }}_${{ matrix.client }}=${{ matrix.client }}" >> "$GITHUB_OUTPUT"
+          result=1
+          echo "result_${{ matrix.server }}_${{ matrix.client }}=${result}" >> "$GITHUB_OUTPUT"
 
   collate:
     runs-on: ubuntu-latest
@@ -48,6 +49,6 @@ jobs:
           echo "Collating..."
           echo "The output from interop-test is: ${{ toJSON(needs.interoptests.outputs) }}"
           results = ${{ toJSON(needs.interoptests.outputs) }}
-          echo "The output from interop-test is: ${results}"
+          echo "The output from interop-test (2) is: ${results}"
           
-          echo "$results" | jq -r 'to_entries | .[] | "\(.key): \(.value)"'
+          echo "${results}" | jq -r 'to_entries | .[] | "\(.key): \(.value)"'
