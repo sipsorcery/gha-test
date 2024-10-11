@@ -36,7 +36,7 @@ jobs:
         id: maintask
         run: |
           # Store output
-          echo '{"result_${{ matrix.server }}_${{ matrix.client }}": "${{ matrix.client }}"}' >> "$GITHUB_OUTPUT"
+          echo "result_${{ matrix.server }}_${{ matrix.client }}=${{ matrix.client }}" >> "$GITHUB_OUTPUT"
 
   collate:
     runs-on: ubuntu-latest
@@ -46,17 +46,8 @@ jobs:
       - name: Collate
         run: |
           echo "Collating..."
-          echo "The output from interoptest is: ${{ toJSON(needs.interoptests.outputs) }}"
-          results="${{ toJSON(needs.interop-tests.outputs) }}"
+          echo "The output from interop-test is: ${{ toJSON(needs.interoptests.outputs) }}"
+          results = ${{ toJSON(needs.interoptests.outputs) }}
+          echo "The output from interop-test is: ${results}"
           
-          # Convert the JSON string back to a Bash associative array
-          declare -A outputs
-          while IFS='=' read -r key value; do
-              outputs["$key"]="$value"
-          done < <(echo "$results" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"')
-
-          # Iterate over the outputs
-          for key in "${!outputs[@]}"; do
-            echo "Key: $key, Value: ${outputs[$key]}"
-          done
-          
+          echo "$results" | jq -r 'to_entries | .[] | "\(.key): \(.value)"'
